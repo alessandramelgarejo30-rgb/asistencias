@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CETPRO San Pedro - Registro Diario de Asistencia</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            cetpro: {
+              50: '#f0f4ff',
+              100: '#e0e7ff',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            },
+            accent: {
+              gold: '#f59e0b',
+              amber: '#d97706',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #311042 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .glass-nav {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .glass-input {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+    .glass-input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+      outline: none;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.5);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.5);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="text-slate-100 font-sans antialiased pb-12">
+
+  <!-- BANNER SUPERIOR DE IMPACTO CON LA IMAGEN SOLICITADA -->
+  <div class="relative w-full h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden border-b-4 border-amber-500 shadow-2xl">
+    <img src="https://i.ibb.co/RGSvQyLh/Gemini-Generated-Image-dmm84pdmm84pdmm8.jpg" alt="CETPRO San Pedro de Aplao Header" class="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700">
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+    <div class="absolute bottom-4 left-4 right-4 max-w-7xl mx-auto flex items-end justify-between">
+      <span class="bg-amber-500/90 text-slate-950 text-xs sm:text-sm font-bold px-3 py-1 rounded-full uppercase tracking-wider backdrop-blur-md shadow-lg">
+        <i class="fas fa-graduation-cap mr-1"></i> Educación Técnica de Calidad
+      </span>
+      <span class="text-xs text-slate-300 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-lg border border-slate-700">
+        <i class="fas fa-map-marker-alt text-amber-400 mr-1"></i> Aplao - Castilla - Arequipa
+      </span>
+    </div>
+  </div>
+
+  <!-- ENCABEZADO INSTITUCIONAL CON LOGO Y TÍTULO -->
+  <header class="glass-nav sticky top-0 z-40 shadow-xl mb-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        
+        <!-- LOGO A LA IZQUIERDA Y TÍTULO SOLICITADO EXACTO -->
+        <div class="flex items-center space-x-4 text-center md:text-left">
+          <div class="relative group">
+            <div class="absolute -inset-0.5 bg-gradient-to-r from-amber-500 to-indigo-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+            <img src="https://i.ibb.co/svmSgs8x/Whats-App-Image-2026-10-26-at-5-44-48-PM.jpg" alt="Logo Cetpro San Pedro" class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-amber-400 shadow-xl">
+          </div>
+          <div>
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-100 to-amber-300 bg-clip-text text-transparent">
+              Registro Diario de Asistencia del Cetpro San Pedro
+            </h1>
+            <p class="text-xs sm:text-sm text-indigo-200 font-medium mt-0.5 flex items-center justify-center md:justify-start gap-2">
+              <span><i class="fas fa-school text-amber-400"></i> Sistema de Gestión Académica</span>
+              <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-emerald-400 text-xs">Firestore Conectado</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- FECHA Y HORA EN TIEMPO REAL -->
+        <div class="bg-slate-900/80 border border-slate-700/80 px-4 py-2 rounded-xl text-center shadow-inner min-w-[200px]">
+          <div id="liveClock" class="text-lg font-bold text-amber-400 font-mono">00:00:00 AM</div>
+          <div id="liveDate" class="text-xs text-slate-300 capitalize">Cargando fecha...</div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- NAVEGACIÓN POR PESTAÑAS (TABS) -->
+    <div class="flex flex-wrap justify-center sm:justify-start gap-2 mb-6 p-1.5 glass-card rounded-2xl shadow-lg border border-slate-700/50">
+      <button onclick="switchTab('marcar')" id="tab-marcar" class="tab-btn active px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+        <i class="fas fa-user-check"></i> <span>Marcar Asistencia</span>
+      </button>
+      <button onclick="switchTab('listado')" id="tab-listado" class="tab-btn text-slate-300 hover:text-white hover:bg-white/5 px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+        <i class="fas fa-list-check"></i> <span>Listado y Reportes</span>
+      </button>
+      <button onclick="switchTab('directorio')" id="tab-directorio" class="tab-btn text-slate-300 hover:text-white hover:bg-white/5 px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+        <i class="fas fa-address-book"></i> <span>Directorio de Estudiantes</span>
+      </button>
+      <button onclick="switchTab('registrar')" id="tab-registrar" class="tab-btn text-slate-300 hover:text-white hover:bg-white/5 px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center gap-2">
+        <i class="fas fa-user-plus"></i> <span>Registrar Estudiante</span>
+      </button>
+    </div>
+
+    <!-- PESTAÑA 1: MARCAR ASISTENCIA -->
+    <section id="content-marcar" class="tab-content block">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- FORMULARIO DE MARCACIÓN DE ASISTENCIA -->
+        <div class="lg:col-span-2 glass-card rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+          <div class="absolute -top-12 -right-12 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl"></div>
+          
+          <h2 class="text-xl font-bold mb-4 text-white flex items-center gap-2 border-b border-slate-700/60 pb-3">
+            <i class="fas fa-calendar-plus text-amber-400"></i> Registrar Asistencia de Hoy
+          </h2>
+
+          <form id="attendanceForm" onsubmit="handleAttendanceSubmit(event)" class="space-y-5">
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-2">Buscar Estudiante por DNI o Nombres *</label>
+              <div class="relative">
+                <input type="text" id="studentSearchInput" placeholder="Escribe DNI o Nombre del estudiante..." required autocomplete="off" oninput="filterStudentsDropdown(this.value)" class="w-full glass-input rounded-xl px-4 py-3 pl-11 text-sm transition-all">
+                <i class="fas fa-search absolute left-4 top-3.5 text-slate-400"></i>
+              </div>
+              
+              <!-- Menú Desplegable Autocomplete -->
+              <div id="studentDropdown" class="hidden absolute z-50 left-0 right-0 mt-1 max-h-60 overflow-y-auto bg-slate-900 border border-indigo-500/30 rounded-xl shadow-2xl"></div>
+              <input type="hidden" id="selectedStudentDni" required>
+            </div>
+
+            <!-- FICHA DEL ESTUDIANTE SELECCIONADO -->
+            <div id="studentDetailCard" class="hidden bg-indigo-950/40 border border-indigo-500/30 rounded-2xl p-4 text-sm space-y-2">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 id="detailName" class="font-bold text-amber-300 text-base">---</h4>
+                  <p id="detailDni" class="text-slate-300 text-xs">DNI: ---</p>
+                </div>
+                <span id="detailModule" class="bg-indigo-900/80 text-indigo-200 text-xs px-2.5 py-1 rounded-full border border-indigo-700/50">
+                  ---
+                </span>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-xs text-slate-300 pt-2 border-t border-indigo-800/40">
+                <p><i class="fas fa-phone text-emerald-400 mr-1"></i> <span id="detailPhone">---</span></p>
+                <p><i class="fas fa-map-marker-alt text-rose-400 mr-1"></i> <span id="detailAddress">---</span></p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Fecha</label>
+                <input type="date" id="attendanceDate" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Hora de Entrada</label>
+                <input type="time" id="attendanceTime" class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-2">Estado de Asistencia *</label>
+              <div class="grid grid-cols-3 gap-3">
+                <label class="cursor-pointer">
+                  <input type="radio" name="attendanceStatus" value="Presente" checked class="peer hidden">
+                  <div class="p-3 text-center rounded-xl border border-slate-700 bg-slate-900/50 text-slate-300 peer-checked:bg-emerald-600/30 peer-checked:border-emerald-500 peer-checked:text-emerald-300 transition-all">
+                    <i class="fas fa-check-circle block text-lg mb-1"></i>
+                    <span class="text-xs font-bold">Presente</span>
+                  </div>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="attendanceStatus" value="Tardanza" class="peer hidden">
+                  <div class="p-3 text-center rounded-xl border border-slate-700 bg-slate-900/50 text-slate-300 peer-checked:bg-amber-600/30 peer-checked:border-amber-500 peer-checked:text-amber-300 transition-all">
+                    <i class="fas fa-clock block text-lg mb-1"></i>
+                    <span class="text-xs font-bold">Tardanza</span>
+                  </div>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="attendanceStatus" value="Falta" class="peer hidden">
+                  <div class="p-3 text-center rounded-xl border border-slate-700 bg-slate-900/50 text-slate-300 peer-checked:bg-rose-600/30 peer-checked:border-rose-500 peer-checked:text-rose-300 transition-all">
+                    <i class="fas fa-times-circle block text-lg mb-1"></i>
+                    <span class="text-xs font-bold">Falta</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-slate-300 mb-2">Observación (Opcional)</label>
+              <input type="text" id="attendanceObs" placeholder="Ej: Justificado, Permiso de salud..." class="w-full glass-input rounded-xl px-4 py-3 text-sm">
+            </div>
+
+            <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-emerald-600/30 transition-all transform active:scale-98 flex items-center justify-center gap-2">
+              <i class="fas fa-save"></i> Guardar Asistencia
+            </button>
+          </form>
+        </div>
+
+        <!-- RESUMEN LATERAL RÁPIDO -->
+        <div class="space-y-6">
+          <div class="glass-card rounded-3xl p-6 border border-slate-700/50">
+            <h3 class="font-bold text-white mb-4 flex items-center gap-2">
+              <i class="fas fa-chart-pie text-amber-400"></i> Resumen de Asistencia Hoy
+            </h3>
+            <div class="grid grid-cols-1 gap-3">
+              <div class="bg-slate-900/60 p-4 rounded-2xl border border-emerald-500/20 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                    <i class="fas fa-user-check"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs text-slate-400">Presentes</p>
+                    <p id="statPresent" class="text-xl font-extrabold text-emerald-400">0</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-slate-900/60 p-4 rounded-2xl border border-amber-500/20 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                    <i class="fas fa-clock"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs text-slate-400">Tardanzas</p>
+                    <p id="statLate" class="text-xl font-extrabold text-amber-400">0</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-slate-900/60 p-4 rounded-2xl border border-rose-500/20 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center">
+                    <i class="fas fa-user-times"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs text-slate-400">Faltas</p>
+                    <p id="statAbsent" class="text-xl font-extrabold text-rose-400">0</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-3xl p-6 border border-indigo-500/20 bg-indigo-950/20">
+            <h4 class="font-bold text-amber-300 text-sm mb-2"><i class="fas fa-info-circle mr-1"></i> Información Importante</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Los datos marcados se sincronizan automáticamente en tiempo real con **Firebase Firestore**. Podrás consultarlos y exportarlos en la pestaña de Listados.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PESTAÑA 2: LISTADO Y REPORTES -->
+    <section id="content-listado" class="tab-content hidden space-y-6">
+      
+      <!-- FILTROS -->
+      <div class="glass-card rounded-3xl p-6 border border-slate-700/50 space-y-4">
+        <h3 class="font-bold text-white text-lg flex items-center gap-2 border-b border-slate-700/50 pb-3">
+          <i class="fas fa-filter text-amber-400"></i> Filtros de Asistencia
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Filtrar por Fecha</label>
+            <input type="date" id="filterDate" onchange="applyAttendanceFilters()" class="w-full glass-input rounded-xl px-3 py-2 text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Especialidad / Módulo</label>
+            <select id="filterModule" onchange="applyAttendanceFilters()" class="w-full glass-input rounded-xl px-3 py-2 text-sm">
+              <option value="Todos" class="bg-slate-900">Todas las Especialidades</option>
+              <option value="Computación e Informática" class="bg-slate-900">Computación e Informática</option>
+              <option value="Estética Personal / Cosmetología" class="bg-slate-900">Estética Personal / Cosmetología</option>
+              <option value="Corte y Ensamblaje Confección" class="bg-slate-900">Corte y Ensamblaje Confección</option>
+              <option value="Cocina y Gastronomía" class="bg-slate-900">Cocina y Gastronomía</option>
+              <option value="Mecánica Automotriz" class="bg-slate-900">Mecánica Automotriz</option>
+              <option value="Electrónica y Electricidad" class="bg-slate-900">Electrónica y Electricidad</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Estado</label>
+            <select id="filterStatus" onchange="applyAttendanceFilters()" class="w-full glass-input rounded-xl px-3 py-2 text-sm">
+              <option value="Todos" class="bg-slate-900">Todos los Estados</option>
+              <option value="Presente" class="bg-slate-900">Presente</option>
+              <option value="Tardanza" class="bg-slate-900">Tardanza</option>
+              <option value="Falta" class="bg-slate-900">Falta</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Buscar por Estudiante</label>
+            <input type="text" id="filterSearch" placeholder="Nombre o DNI..." oninput="applyAttendanceFilters()" class="w-full glass-input rounded-xl px-3 py-2 text-sm">
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center pt-2">
+          <button onclick="resetFilters()" class="text-xs text-indigo-300 hover:text-white flex items-center gap-1">
+            <i class="fas fa-undo"></i> Limpiar Filtros
+          </button>
+          <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2 transition-all">
+            <i class="fas fa-file-excel"></i> Exportar Reporte a CSV
+          </button>
+        </div>
+      </div>
+
+      <!-- TABLA DE RESULTADOS DE ASISTENCIA -->
+      <div class="glass-card rounded-3xl overflow-hidden shadow-2xl border border-slate-700/50">
+        <div class="p-4 bg-slate-900/60 border-b border-slate-700/50 flex justify-between items-center">
+          <h4 class="font-bold text-amber-300 text-sm">
+            <i class="fas fa-list"></i> Historial de Asistencias
+          </h4>
+          <span id="recordsCount" class="text-xs bg-indigo-900/80 text-indigo-200 px-3 py-1 rounded-full border border-indigo-700/50">
+            0 Registros
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm text-slate-300">
+            <thead class="bg-slate-900/80 text-xs uppercase text-slate-400 border-b border-slate-700">
+              <tr>
+                <th class="p-4">Fecha y Hora</th>
+                <th class="p-4">Estudiante / DNI</th>
+                <th class="p-4">Especialidad</th>
+                <th class="p-4">Estado</th>
+                <th class="p-4">Observación</th>
+                <th class="p-4 text-center">Acción</th>
+              </tr>
+            </thead>
+            <tbody id="attendanceTableBody" class="divide-y divide-slate-800">
+              <tr>
+                <td colspan="6" class="p-8 text-center text-slate-400">
+                  <i class="fas fa-spinner fa-spin text-2xl mb-2 text-indigo-400 block"></i>
+                  Cargando asistencias desde Firestore...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- PESTAÑA 3: DIRECTORIO DE ESTUDIANTES PRECARGADOS DESDE IMÁGENES -->
+    <section id="content-directorio" class="tab-content hidden space-y-6">
+      
+      <div class="glass-card rounded-3xl p-6 border border-slate-700/50 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div>
+          <h3 class="text-xl font-bold text-white flex items-center gap-2">
+            <i class="fas fa-users text-amber-400"></i> Estudiantes Registrados en el CETPRO
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">Directorio oficial completo extraído de las listas del CETPRO San Pedro.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <button onclick="seedDatabaseWithInitialStudents()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2 transition-all">
+            <i class="fas fa-cloud-upload-alt"></i> Cargar Datos de Imágenes a Firestore
+          </button>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-3xl overflow-hidden shadow-2xl border border-slate-700/50">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm text-slate-300">
+            <thead class="bg-slate-900/80 text-xs uppercase text-slate-400 border-b border-slate-700">
+              <tr>
+                <th class="p-4">Nombres y Apellidos</th>
+                <th class="p-4">DNI</th>
+                <th class="p-4">F. Nacimiento / Edad</th>
+                <th class="p-4">Dirección</th>
+                <th class="p-4">Grado Est.</th>
+                <th class="p-4">Celular / Correo</th>
+                <th class="p-4 text-center">Acción</th>
+              </tr>
+            </thead>
+            <tbody id="studentsTableBody" class="divide-y divide-slate-800">
+              <tr>
+                <td colspan="7" class="p-8 text-center text-slate-400">
+                  <i class="fas fa-spinner fa-spin text-2xl mb-2 text-indigo-400 block"></i>
+                  Cargando directorio...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- PESTAÑA 4: REGISTRAR NUEVO ESTUDIANTE -->
+    <section id="content-registrar" class="tab-content hidden">
+      <div class="max-w-2xl mx-auto glass-card rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-700/50">
+        <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2 border-b border-slate-700/60 pb-3">
+          <i class="fas fa-user-plus text-amber-400"></i> Formulario de Registro de Estudiante
+        </h2>
+
+        <form id="studentRegisterForm" onsubmit="handleStudentRegister(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Nombres completos *</label>
+              <input type="text" id="regName" required placeholder="Ej: Yovana Rosio" class="w-full glass-input rounded-xl px-4 py-2.5 text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Apellidos completos *</label>
+              <input type="text" id="regLastName" required placeholder="Ej: Revilla Rodriguez" class="w-full glass-input rounded-xl px-4 py-2.5 text-sm">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">DNI (Documento de Identidad) *</label>
+              <input type="text" id="regDni" maxlength="8" required placeholder="8 dígitos" class="w-full glass-input rounded-xl px-4 py-2.5 text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Fecha de Nacimiento</label>
+              <input type="date" id="regBirth" class="w-full glass-input rounded-xl px-4 py-2.5 text-sm">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Dirección / Anexo</label>
+              <input type="text" id="regAddress" placeholder="Ej: Corire, Casquina..." class="w-full glass-input rounded-xl px-4 py-2.5 text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Grado de Estudios</label>
+              <select id="regGrade" class="w-full glass-input rounded-xl px-4 py-2.5 text-sm">
+                <option value="Secundaria" class="bg-slate-900">Secundaria Completa</option>
+                <option value="Superior" class="bg-slate-900">Superior / Técnico</option>
+                <option value="Otros" class="bg-slate-900">Otros</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Número de Celular</label>
+              <input type="tel" id="regPhone" placeholder="Ej: 948148125" class="w-full glass-input rounded-xl px-4 py-2.5 text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Correo Electrónico</label>
+              <input type="email" id="regEmail" placeholder="correo@ejemplo.com" class="w-full glass-input rounded-xl px-4 py-2.5 text-sm">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Especialidad / Módulo del CETPRO *</label>
+            <select id="regModule" required class="w-full glass-input rounded-xl px-4 py-2.5 text-sm">
+              <option value="Computación e Informática" class="bg-slate-900">Computación e Informática</option>
+              <option value="Estética Personal / Cosmetología" class="bg-slate-900">Estética Personal / Cosmetología</option>
+              <option value="Corte y Ensamblaje Confección" class="bg-slate-900">Corte y Ensamblaje Confección</option>
+              <option value="Cocina y Gastronomía" class="bg-slate-900">Cocina y Gastronomía</option>
+              <option value="Mecánica Automotriz" class="bg-slate-900">Mecánica Automotriz</option>
+              <option value="Electrónica y Electricidad" class="bg-slate-900">Electrónica y Electricidad</option>
+            </select>
+          </div>
+
+          <div class="pt-4">
+            <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+              <i class="fas fa-save"></i> Registrar Estudiante en Firestore
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NOTIFICACIÓN TIPO TOAST INTERACTIVA -->
+  <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none max-w-md">
+    <div id="toastContent" class="glass-card bg-slate-900/95 border-l-4 border-emerald-500 px-5 py-4 rounded-2xl shadow-2xl flex items-center gap-3">
+      <i id="toastIcon" class="fas fa-check-circle text-emerald-400 text-xl"></i>
+      <div>
+        <h5 id="toastTitle" class="font-bold text-sm text-white">Notificación</h5>
+        <p id="toastMessage" class="text-xs text-slate-300">Mensaje de confirmación aquí...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT CONEXIÓN FIREBASE FIRESTORE Y LÓGICA COMPLETA -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+      getFirestore, 
+      collection, 
+      addDoc, 
+      getDocs, 
+      onSnapshot, 
+      doc, 
+      deleteDoc, 
+      query, 
+      where, 
+      orderBy,
+      setDoc,
+      serverTimestamp 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // Configuración proporcionada por el usuario
+    const firebaseConfig = {
+      apiKey: "AIzaSyC-STrBxKQzqPlL0_PsE8_JkcjUYIHQKoU",
+      authDomain: "cetpro-firebase-avrilcita.firebaseapp.com",
+      projectId: "cetpro-firebase-avrilcita",
+      storageBucket: "cetpro-firebase-avrilcita.firebasestorage.app",
+      messagingSenderId: "723581873374",
+      appId: "1:723581873374:web:bbbdfcfdd960e7e0e1e64f",
+      measurementId: "G-0N219F35DT"
+    };
+
+    // Inicializar Firebase y Firestore
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // DATOS EXTRAÍDOS DE LAS IMÁGENES PROPORCIONADAS
+    const initialStudentsFromImages = [
+      { dni: "30762598", nombres: "YOVANA ROSIO", apellidos: "REVILLA RODRIGUEZ", birth: "27/05/1975", edad: "50", direccion: "CALLE 15 DE AGOSTO", grado: "SUPERIOR", celular: "948148125", correo: "YOVIREVI@GMAIL.COM", apoderado: "", apoderadoDni: "", modulo: "Computación e Informática" },
+      { dni: "40992143", nombres: "Ruth Alicia", apellidos: "Patiño Rodríguez", birth: "16/06/1981", edad: "44", direccion: "Huancarqui", grado: "Superior", celular: "930190586", correo: "ruthkiara1607@gmail.com", apoderado: "", apoderadoDni: "", modulo: "Computación e Informática" },
+      { dni: "43327552", nombres: "Marcia Isabel", apellidos: "Huayna Mamani", birth: "12/07/1984", edad: "41", direccion: "La Real", grado: "5to de secundaria", celular: "926533010", correo: "marciahuayna0@gmail.com", apoderado: "", apoderadoDni: "", modulo: "Computación e Informática" },
+      { dni: "44174935", nombres: "Yessica Nazarely", apellidos: "Torres Ramos", birth: "05/07/1986", edad: "39", direccion: "Corire", grado: "Superior", celular: "931122717", correo: "", apoderado: "Elcira Ramos Cruz", apoderadoDni: "959027214", modulo: "Estética Personal / Cosmetología" },
+      { dni: "47861053", nombres: "Gabriela Alicia", apellidos: "Taya Yucra", birth: "27/02/1991", edad: "35", direccion: "Anexo Mamas s/n", grado: "Técnico Superior", celular: "925255716", correo: "Gabrielataya7@gmail.com", apoderado: "Sebastian Taya", apoderadoDni: "925147601", modulo: "Estética Personal / Cosmetología" },
+      { dni: "71056945", nombres: "Sulma Lidia", apellidos: "Delgado Anco", birth: "12/06/1997", edad: "28", direccion: "Av. Principal s/n Casqui", grado: "Secundaria Completa", celular: "972436043", correo: "sulmadelgado75@gmail.com", apoderado: "", apoderadoDni: "", modulo: "Computación e Informática" },
+      { dni: "60058216", nombres: "Juan Diego", apellidos: "Escalante Torres", birth: "24/04/2006", edad: "20", direccion: "Corire", grado: "Superior", celular: "963257683", correo: "jd.metakill117@gmail.com", apoderado: "Yessica Nazarely Torres Ramos", apoderadoDni: "931122717", modulo: "Computación e Informática" },
+      { dni: "77689891", nombres: "Ederson Diego", apellidos: "Chambi Chambi", birth: "05/05/2006", edad: "19", direccion: "Aplao/Casquina", grado: "Secundaria Completa", celular: "928369411", correo: "shigatakrgdgimax@gmail.com", apoderado: "Dionicia", apoderadoDni: "941602098", modulo: "Computación e Informática" },
+      { dni: "72987834", nombres: "Avril Alessandra", apellidos: "Melgarejo Nieto", birth: "30/01/2009", edad: "17", direccion: "Cosos", grado: "Instituto", celular: "902335523", correo: "alessandra.melgarejo30@gmail.com", apoderado: "Jonathan Melgarejo", apoderadoDni: "929194327", modulo: "Computación e Informática" },
+      { dni: "62151652", nombres: "Zhaori Kamil", apellidos: "Delgado Quispe", birth: "16/03/2010", edad: "16", direccion: "Av. 3 de Abril", grado: "Secundaria", celular: "967144679", correo: "", apoderado: "Raquel Quispe Chisi", apoderadoDni: "985412711", modulo: "Computación e Informática" },
+      { dni: "10000001", nombres: "Heidy", apellidos: "Escobar Calizaya", birth: "12/04/2010", edad: "15", direccion: "Provincia de Castilla", grado: "Secundaria", celular: "901112743", correo: "escobar_heidy_calizaya@gmail.com", apoderado: "Eliana", apoderadoDni: "928498361", modulo: "Computación e Informática" },
+      { dni: "10000002", nombres: "Sebastian Fernando", apellidos: "Ramos Torres", birth: "19/04/2006", edad: "15", direccion: "Casquina", grado: "4 'A'", celular: "966446286", correo: "sebastiancomputo12@gmail.com", apoderado: "Juana Beatriz", apoderadoDni: "994991218", modulo: "Computación e Informática" }
+    ];
+
+    // Variables globales
+    let studentsList = [];
+    let attendanceList = [];
+
+    // Inicialización al cargar la ventana
+    window.addEventListener('DOMContentLoaded', () => {
+      initClock();
+      setDefaultDates();
+      listenStudents();
+      listenAttendance();
+    });
+
+    // Reloj en vivo
+    function initClock() {
+      const updateClock = () => {
+        const now = new Date();
+        document.getElementById('liveClock').textContent = now.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        document.getElementById('liveDate').textContent = now.toLocaleDateString('es-PE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      };
+      updateClock();
+      setInterval(updateClock, 1000);
+    }
+
+    // Fechas por defecto en los inputs
+    function setDefaultDates() {
+      const today = new Date().toISOString().split('T')[0];
+      const time = new Date().toTimeString().split(' ')[0].substring(0, 5);
+      
+      document.getElementById('attendanceDate').value = today;
+      document.getElementById('attendanceTime').value = time;
+      document.getElementById('filterDate').value = today;
+    }
+
+    // Cambiar Pestañas (Tabs)
+    window.switchTab = function(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.classList.add('text-slate-300');
+      });
+
+      document.getElementById(`content-${tabName}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`tab-${tabName}`);
+      activeBtn.classList.add('active');
+      activeBtn.classList.remove('text-slate-300');
+    }
+
+    // Sincronizar Estudiantes con Firestore
+    function listenStudents() {
+      const q = collection(db, "estudiantes");
+      onSnapshot(q, (snapshot) => {
+        studentsList = [];
+        snapshot.forEach((doc) => {
+          studentsList.push({ id: doc.id, ...doc.data() });
+        });
+        
+        // Si la base está vacía la primera vez, autocargar datos de imágenes
+        if (studentsList.length === 0) {
+          seedDatabaseWithInitialStudents();
+        } else {
+          renderStudentsTable();
+        }
+      });
+    }
+
+    // Precargar lista inicial de imágenes a Firestore
+    window.seedDatabaseWithInitialStudents = async function() {
+      try {
+        let count = 0;
+        for (const st of initialStudentsFromImages) {
+          await setDoc(doc(db, "estudiantes", st.dni), {
+            ...st,
+            createdAt: serverTimestamp()
+          });
+          count++;
+        }
+        showToast("Éxito", `Se han cargado ${count} estudiantes a Firestore.`, "success");
+      } catch (e) {
+        console.error("Error al poblar base de datos:", e);
+        showToast("Error", "No se pudo sincronizar la lista de imágenes.", "error");
+      }
+    };
+
+    // Renderizar Directorio de Estudiantes
+    function renderStudentsTable() {
+      const tbody = document.getElementById('studentsTableBody');
+      if (studentsList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400">No hay estudiantes registrados.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = studentsList.map(st => `
+        <tr class="hover:bg-slate-800/50 transition-colors">
+          <td class="p-4 font-bold text-amber-300">
+            ${st.nombres} ${st.apellidos}
+            <span class="block text-xs font-normal text-slate-400">${st.modulo || 'General'}</span>
+          </td>
+          <td class="p-4"><span class="bg-slate-900 border border-slate-700 px-2 py-1 rounded font-mono text-xs">${st.dni}</span></td>
+          <td class="p-4 text-xs">${st.birth || '-'} <span class="text-slate-500">(${st.edad || '-'} yrs)</span></td>
+          <td class="p-4 text-xs text-slate-300">${st.direccion || '-'}</td>
+          <td class="p-4 text-xs"><span class="bg-indigo-950 text-indigo-300 px-2 py-1 rounded">${st.grado || 'Secundaria'}</span></td>
+          <td class="p-4 text-xs">
+            <div><i class="fas fa-phone text-emerald-400 mr-1"></i> ${st.celular || '-'}</div>
+            <div class="text-slate-400 text-[11px]">${st.correo || ''}</div>
+          </td>
+          <td class="p-4 text-center">
+            <button onclick="quickSelectStudent('${st.dni}')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-1.5 rounded-lg shadow mr-1">
+              <i class="fas fa-check"></i> Asistencia
+            </button>
+            <button onclick="deleteStudent('${st.id}')" class="text-rose-400 hover:text-rose-300 p-1.5">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Filtrar Autocomplete para Selección de Estudiante
+    window.filterStudentsDropdown = function(val) {
+      const dropdown = document.getElementById('studentDropdown');
+      if (!val.trim()) {
+        dropdown.classList.add('hidden');
+        return;
+      }
+
+      const match = studentsList.filter(s => 
+        s.nombres.toLowerCase().includes(val.toLowerCase()) ||
+        s.apellidos.toLowerCase().includes(val.toLowerCase()) ||
+        s.dni.includes(val)
+      );
+
+      if (match.length === 0) {
+        dropdown.innerHTML = `<div class="p-3 text-xs text-slate-400">No se encontraron estudiantes</div>`;
+      } else {
+        dropdown.innerHTML = match.map(s => `
+          <div onclick="selectStudentForAttendance('${s.dni}')" class="p-3 hover:bg-indigo-900/60 cursor-pointer border-b border-slate-800 flex justify-between items-center">
+            <div>
+              <p class="font-bold text-amber-300 text-xs">${s.nombres} ${s.apellidos}</p>
+              <p class="text-[11px] text-slate-400">DNI: ${s.dni} | Cel: ${s.celular || 'S/N'}</p>
+            </div>
+            <span class="text-[10px] bg-indigo-950 text-indigo-300 px-2 py-0.5 rounded border border-indigo-800">${s.modulo || 'General'}</span>
+          </div>
+        `).join('');
+      }
+      dropdown.classList.remove('hidden');
+    };
+
+    // Seleccionar Estudiante para Marcación
+    window.selectStudentForAttendance = function(dni) {
+      const student = studentsList.find(s => s.dni === dni);
+      if (!student) return;
+
+      document.getElementById('selectedStudentDni').value = student.dni;
+      document.getElementById('studentSearchInput').value = `${student.nombres} ${student.apellidos} (${student.dni})`;
+      document.getElementById('studentDropdown').classList.add('hidden');
+
+      // Actualizar Ficha Visual
+      document.getElementById('detailName').textContent = `${student.nombres} ${student.apellidos}`;
+      document.getElementById('detailDni').textContent = `DNI: ${student.dni}`;
+      document.getElementById('detailModule').textContent = student.modulo || 'Computación e Informática';
+      document.getElementById('detailPhone').textContent = student.celular || 'No registrado';
+      document.getElementById('detailAddress').textContent = student.direccion || 'Aplao';
+      
+      document.getElementById('studentDetailCard').classList.remove('hidden');
+    };
+
+    window.quickSelectStudent = function(dni) {
+      switchTab('marcar');
+      selectStudentForAttendance(dni);
+    };
+
+    // Guardar Asistencia en Firestore
+    window.handleAttendanceSubmit = async function(e) {
+      e.preventDefault();
+      const dni = document.getElementById('selectedStudentDni').value;
+      if (!dni) {
+        showToast("Atención", "Debes seleccionar un estudiante de la lista desplegable.", "error");
+        return;
+      }
+
+      const student = studentsList.find(s => s.dni === dni);
+      const date = document.getElementById('attendanceDate').value;
+      const time = document.getElementById('attendanceTime').value;
+      const status = document.querySelector('input[name="attendanceStatus"]:checked').value;
+      const obs = document.getElementById('attendanceObs').value;
+
+      try {
+        await addDoc(collection(db, "asistencias"), {
+          dni: student.dni,
+          estudiante: `${student.nombres} ${student.apellidos}`,
+          modulo: student.modulo || 'Computación e Informática',
+          fecha: date,
+          hora: time,
+          estado: status,
+          observacion: obs,
+          timestamp: serverTimestamp()
+        });
+
+        showToast("¡Asistencia Registrada!", `${student.nombres} fue marcado como ${status}.`, "success");
+        
+        // Limpiar formulario parcialmente
+        document.getElementById('selectedStudentDni').value = '';
+        document.getElementById('studentSearchInput').value = '';
+        document.getElementById('attendanceObs').value = '';
+        document.getElementById('studentDetailCard').classList.add('hidden');
+
+      } catch (err) {
+        console.error("Error al guardar asistencia:", err);
+        showToast("Error", "Ocurrió un fallo al intentar registrar la asistencia.", "error");
+      }
+    };
+
+    // Escuchar cambios en la Colección de Asistencias
+    function listenAttendance() {
+      const q = collection(db, "asistencias");
+      onSnapshot(q, (snapshot) => {
+        attendanceList = [];
+        snapshot.forEach((doc) => {
+          attendanceList.push({ id: doc.id, ...doc.data() });
+        });
+
+        // Ordenar por fecha y hora descendente
+        attendanceList.sort((a, b) => (b.fecha + b.hora).localeCompare(a.fecha + a.hora));
+
+        updateAttendanceStats();
+        applyAttendanceFilters();
+      });
+    }
+
+    // Actualizar Estadísticas Rápidas de Hoy
+    function updateAttendanceStats() {
+      const today = new Date().toISOString().split('T')[0];
+      const todayRecords = attendanceList.filter(a => a.fecha === today);
+
+      const present = todayRecords.filter(a => a.estado === 'Presente').length;
+      const late = todayRecords.filter(a => a.estado === 'Tardanza').length;
+      const absent = todayRecords.filter(a => a.estado === 'Falta').length;
+
+      document.getElementById('statPresent').textContent = present;
+      document.getElementById('statLate').textContent = late;
+      document.getElementById('statAbsent').textContent = absent;
+    }
+
+    // Aplicar Filtros a la Tabla de Asistencias
+    window.applyAttendanceFilters = function() {
+      const fDate = document.getElementById('filterDate').value;
+      const fModule = document.getElementById('filterModule').value;
+      const fStatus = document.getElementById('filterStatus').value;
+      const fSearch = document.getElementById('filterSearch').value.toLowerCase();
+
+      let filtered = attendanceList.filter(item => {
+        if (fDate && item.fecha !== fDate) return false;
+        if (fModule !== 'Todos' && item.modulo !== fModule) return false;
+        if (fStatus !== 'Todos' && item.estado !== fStatus) return false;
+        if (fSearch && !item.estudiante.toLowerCase().includes(fSearch) && !item.dni.includes(fSearch)) return false;
+        return true;
+      });
+
+      renderAttendanceTable(filtered);
+    };
+
+    window.resetFilters = function() {
+      document.getElementById('filterDate').value = '';
+      document.getElementById('filterModule').value = 'Todos';
+      document.getElementById('filterStatus').value = 'Todos';
+      document.getElementById('filterSearch').value = '';
+      applyAttendanceFilters();
+    };
+
+    // Renderizar Tabla de Asistencias
+    function renderAttendanceTable(list) {
+      const tbody = document.getElementById('attendanceTableBody');
+      document.getElementById('recordsCount').textContent = `${list.length} Registros`;
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400">No hay registros de asistencia que coincidan con los filtros.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(item => {
+        let statusBadge = '';
+        if (item.estado === 'Presente') statusBadge = `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-700/50 px-2.5 py-1 rounded-full text-xs font-bold"><i class="fas fa-check-circle mr-1"></i> Presente</span>`;
+        else if (item.estado === 'Tardanza') statusBadge = `<span class="bg-amber-950/80 text-amber-400 border border-amber-700/50 px-2.5 py-1 rounded-full text-xs font-bold"><i class="fas fa-clock mr-1"></i> Tardanza</span>`;
+        else statusBadge = `<span class="bg-rose-950/80 text-rose-400 border border-rose-700/50 px-2.5 py-1 rounded-full text-xs font-bold"><i class="fas fa-times-circle mr-1"></i> Falta</span>`;
+
+        return `
+          <tr class="hover:bg-slate-800/40 transition-colors">
+            <td class="p-4 text-xs font-mono">
+              <div class="text-amber-300 font-bold">${item.fecha}</div>
+              <div class="text-slate-400">${item.hora}</div>
+            </td>
+            <td class="p-4">
+              <div class="font-bold text-white">${item.estudiante}</div>
+              <div class="text-xs text-slate-400 font-mono">DNI: ${item.dni}</div>
+            </td>
+            <td class="p-4 text-xs">
+              <span class="bg-slate-900 border border-slate-700 px-2 py-1 rounded text-slate-300">${item.modulo || 'Computación'}</span>
+            </td>
+            <td class="p-4">${statusBadge}</td>
+            <td class="p-4 text-xs text-slate-300">${item.observacion || '-'}</td>
+            <td class="p-4 text-center">
+              <button onclick="deleteAttendance('${item.id}')" class="text-rose-400 hover:text-rose-300 p-2 rounded-lg hover:bg-rose-950/30">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Registrar Nuevo Estudiante desde el Formulario
+    window.handleStudentRegister = async function(e) {
+      e.preventDefault();
+      const name = document.getElementById('regName').value.trim();
+      const lastName = document.getElementById('regLastName').value.trim();
+      const dni = document.getElementById('regDni').value.trim();
+      const birth = document.getElementById('regBirth').value;
+      const address = document.getElementById('regAddress').value.trim();
+      const grade = document.getElementById('regGrade').value;
+      const phone = document.getElementById('regPhone').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const moduleVal = document.getElementById('regModule').value;
+
+      try {
+        await setDoc(doc(db, "estudiantes", dni), {
+          dni,
+          nombres: name,
+          apellidos: lastName,
+          birth,
+          direccion: address,
+          grado: grade,
+          celular: phone,
+          correo: email,
+          modulo: moduleVal,
+          createdAt: serverTimestamp()
+        });
+
+        showToast("Estudiante Registrado", `${name} ${lastName} se agregó correctamente.`, "success");
+        document.getElementById('studentRegisterForm').reset();
+        switchTab('directorio');
+
+      } catch (err) {
+        console.error("Error al registrar estudiante:", err);
+        showToast("Error", "No se pudo registrar al estudiante.", "error");
+      }
+    };
+
+    // Eliminar Estudiante
+    window.deleteStudent = async function(id) {
+      if (confirm("¿Estás seguro de eliminar este estudiante del directorio?")) {
+        try {
+          await deleteDoc(doc(db, "estudiantes", id));
+          showToast("Eliminado", "Estudiante retirado del sistema.", "success");
+        } catch (e) {
+          showToast("Error", "No se pudo eliminar el registro.", "error");
+        }
+      }
+    };
+
+    // Eliminar Asistencia
+    window.deleteAttendance = async function(id) {
+      if (confirm("¿Deseas eliminar este registro de asistencia?")) {
+        try {
+          await deleteDoc(doc(db, "asistencias", id));
+          showToast("Eliminado", "Asistencia eliminada.", "success");
+        } catch (e) {
+          showToast("Error", "No se pudo borrar el registro.", "error");
+        }
+      }
+    };
+
+    // Exportar Lista Actual a Formato CSV Excel
+    window.exportToCSV = function() {
+      if (attendanceList.length === 0) {
+        showToast("Atención", "No hay datos para exportar.", "error");
+        return;
+      }
+
+      let csv = 'Fecha,Hora,DNI,Estudiante,Especialidad,Estado,Observacion\n';
+      attendanceList.forEach(row => {
+        csv += `"${row.fecha}","${row.hora}","${row.dni}","${row.estudiante}","${row.modulo || ''}","${row.estado}","${row.observacion || ''}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `Asistencia_CETPRO_San_Pedro_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      showToast("Descarga Iniciada", "El reporte CSV fue generado con éxito.", "success");
+    };
+
+    // Sistema de Alertas Toast
+    function showToast(title, msg, type = 'success') {
+      const toast = document.getElementById('toastNotification');
+      const toastContent = document.getElementById('toastContent');
+      const icon = document.getElementById('toastIcon');
+      
+      document.getElementById('toastTitle').textContent = title;
+      document.getElementById('toastMessage').textContent = msg;
+
+      if (type === 'success') {
+        toastContent.className = "glass-card bg-slate-900/95 border-l-4 border-emerald-500 px-5 py-4 rounded-2xl shadow-2xl flex items-center gap-3";
+        icon.className = "fas fa-check-circle text-emerald-400 text-xl";
+      } else {
+        toastContent.className = "glass-card bg-slate-900/95 border-l-4 border-rose-500 px-5 py-4 rounded-2xl shadow-2xl flex items-center gap-3";
+        icon.className = "fas fa-exclamation-triangle text-rose-400 text-xl";
+      }
+
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 4000);
+    }
+  </script>
+
+</body>
+</html>
